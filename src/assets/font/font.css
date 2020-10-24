@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "PingFang SC thin";
+    src: url("PINGFANG SC THIN.OTF");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: "PingFang SC";
+  src: url("PingFang\ SC\ Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
