@@ -77,7 +77,7 @@ export default {
     },
 
     go_search() {
-      console.log("search");
+      this.$router.push("search");
     },
 
     go_next(name) {
@@ -126,7 +126,7 @@ export default {
 
 #main_body {
   padding-top: 9px;
-  height: 711px;
+  min-height: 711px;
   width: 375px;
   border-radius: 0px 40px 0px 0px;
   background-color: #fff;
@@ -138,7 +138,8 @@ export default {
   justify-content: space-between;
   height: 22px;
   width: 301px;
-  margin: 0 auto;
+  margin-left: 31px;
+  margin-right: 43px;
   padding: 17px 0;
 }
 

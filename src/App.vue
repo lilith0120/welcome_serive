@@ -21,8 +21,10 @@ export default {
       // 通过判断路由自定义的级别来判断是转入还是转出
       if (to.meta.level > from.meta.level || from.meta.level == undefined) {
         this.transition_name = "slide-left";
-      } else {
+      } else if (to.meta.level < from.meta.level) {
         this.transition_name = "slide-right";
+      } else if (to.meta.level == undefined) {
+        this.transition_name = "";
       }
     },
   },
@@ -40,7 +42,6 @@ html,
 body {
   height: 100%;
   width: 100%;
-  font-family: "PingFang SC";
 }
 
 .slide-right-enter-active,

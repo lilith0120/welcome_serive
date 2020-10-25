@@ -37,11 +37,11 @@ export default {
 
   methods: {
     go_back() {
-      console.log("back");
+      this.$router.go(-1);
     },
 
     go_other() {
-      console.log("other");
+      this.$router.push("other");
     },
 
     go_main() {

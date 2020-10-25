@@ -6,6 +6,8 @@ Vue.use(VueRouter)
 // 引入组件
 const home = () => import('../components/home.vue')
 const main = () => import('../components/main.vue')
+const other = () => import('../components/other.vue')
+const search = () => import('../components/search.vue')
 
 const router = new VueRouter({
     base: '',
@@ -25,6 +27,19 @@ const router = new VueRouter({
             meta: {
                 level: 2
             }
+        },
+        {
+            path: '/other',
+            component: other,
+            name: 'other',
+            meta: {
+                level: 2
+            }
+        },
+        {
+            path: '/search',
+            component: search,
+            name: 'search'
         }
     ]
 })
