@@ -19,9 +19,15 @@ export default {
   watch: {
     $route(to, from) {
       // 通过判断路由自定义的级别来判断是转入还是转出
-      if (to.meta.level > from.meta.level || from.meta.level == undefined) {
+      if (
+        to.meta.level > from.meta.level ||
+        (from.meta.level == undefined && to.meta.level == 1)
+      ) {
         this.transition_name = "slide-left";
-      } else if (to.meta.level < from.meta.level) {
+      } else if (
+        to.meta.level < from.meta.level ||
+        (from.meta.level == undefined && to.meta.level > 1)
+      ) {
         this.transition_name = "slide-right";
       } else if (to.meta.level == undefined) {
         this.transition_name = "";

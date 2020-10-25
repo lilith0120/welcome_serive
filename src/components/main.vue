@@ -21,7 +21,7 @@
         class="item_list"
         v-for="(item, index) in items"
         :key="index"
-        @click="go_next(item.name)"
+        @click="go_next(item.id, item.name)"
       >
         <span class="item_name">{{ item.name }}</span>
         <img class="next_icon" src="../assets/image/next.png" />
@@ -38,25 +38,16 @@ export default {
     return {
       items: [
         {
+          id: 0,
           name: "校级",
         },
         {
+          id: 1,
           name: "数计学院",
         },
         {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
+          id: 2,
+          name: "电气学院",
         },
       ],
     };
@@ -80,8 +71,8 @@ export default {
       this.$router.push("search");
     },
 
-    go_next(name) {
-      console.log(name);
+    go_next(id, name) {
+      this.$router.push({ path: `/${id}/${name}` });
     },
   },
 };
