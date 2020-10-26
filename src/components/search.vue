@@ -229,7 +229,7 @@ export default {
 }
 
 #before_search {
-  min-height: 720px;
+  min-height: 748px;
 }
 
 #history_label {

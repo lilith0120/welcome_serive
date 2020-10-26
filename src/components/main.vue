@@ -2,12 +2,14 @@
   <div id="main">
     <div id="title_bar">
       <div id="title_body">
-        <img
-          class="back_icon"
-          src="../assets/image/back.png"
-          @click="go_back"
-        />
-        <span id="title_label">部门与社团</span>
+        <div id="title_front">
+          <img
+            class="back_icon"
+            src="../assets/image/back.png"
+            @click="go_back"
+          />
+          <span id="title_label">{{ title }}</span>
+        </div>
         <img
           class="search_icon"
           src="../assets/image/search.png"
@@ -36,6 +38,10 @@ export default {
 
   data() {
     return {
+      title:
+        this.$route.params.name == undefined
+          ? "部门与社团"
+          : this.$route.params.name,
       items: [
         {
           id: 0,
@@ -54,9 +60,16 @@ export default {
   },
 
   // created() {
+  //   let url;
+  //   if (this.$route.params.name == undefined) {
+  //     url = "";
+  //   } else {
+  //     url = "";
+  //   }
+
   //   this.$axios({
   //     method: "",
-  //     url: "",
+  //     url: url,
   //   }).then((re) => {
   //     console.log(re);
   //   });
@@ -68,11 +81,15 @@ export default {
     },
 
     go_search() {
-      this.$router.push("search");
+      this.$router.push("/search");
     },
 
     go_next(id, name) {
-      this.$router.push({ path: `/${id}/${name}` });
+      if (this.$route.params.name == undefined) {
+        this.$router.push({ path: `/${id}/${name}` });
+      } else {
+        console.log(233);
+      }
     },
   },
 };
@@ -93,10 +110,16 @@ export default {
 #title_body {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 325px;
   height: 25px;
   margin: 0 auto;
   margin-top: 19px;
+}
+
+#title_front {
+  display: flex;
+  align-items: center;
 }
 
 .back_icon {
@@ -110,7 +133,6 @@ export default {
 }
 
 .search_icon {
-  margin-left: 180px;
   width: 18px;
   height: 18px;
 }

@@ -49,6 +49,14 @@ const router = new VueRouter({
             path: '/search',
             component: search,
             name: 'search'
+        },
+        {
+            path: '/next/:id/:name',
+            component: main,
+            name: 'next',
+            meta: {
+                level: 4
+            }
         }
     ]
 })

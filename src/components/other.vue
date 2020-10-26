@@ -2,12 +2,14 @@
   <div id="other">
     <div id="title_bar">
       <div id="title_body">
-        <img
-          class="back_icon"
-          src="../assets/image/back.png"
-          @click="go_back"
-        />
-        <span id="title_label">加了血赚的组织</span>
+        <div id="title_front">
+          <img
+            class="back_icon"
+            src="../assets/image/back.png"
+            @click="go_back"
+          />
+          <span id="title_label">加了血赚的组织</span>
+        </div>
         <img
           class="search_icon"
           src="../assets/image/search.png"
@@ -90,10 +92,16 @@ export default {
 #title_body {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 325px;
   height: 25px;
   margin: 0 auto;
   margin-top: 19px;
+}
+
+#title_front {
+  display: flex;
+  align-items: center;
 }
 
 .back_icon {
@@ -107,7 +115,6 @@ export default {
 }
 
 .search_icon {
-  margin-left: 145px;
   width: 18px;
   height: 18px;
 }

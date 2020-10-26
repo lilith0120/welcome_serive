@@ -48,6 +48,32 @@
           <div id="box8"></div>
         </div>
       </div>
+
+      <div id="main_content">
+        <template v-if="isDepartment">
+          <div
+            class="item_list"
+            v-for="(department, index) in departments"
+            :key="index"
+            @click="go_next(department.id, department.name)"
+          >
+            <span class="item_name">{{ department.name }}</span>
+            <img class="next_icon" src="../assets/image/next.png" />
+          </div>
+        </template>
+
+        <template v-else>
+          <div
+            class="item_list"
+            v-for="(league, index) in leagues"
+            :key="index"
+            @click="go_detail(league.id, league.name)"
+          >
+            <span class="item_name">{{ league.name }}</span>
+            <img class="next_icon" src="../assets/image/next.png" />
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -60,8 +86,52 @@ export default {
     return {
       title: this.$route.params.name,
       isDepartment: true,
+      departments: [
+        {
+          id: 0,
+          name: "福州大学学生会",
+        },
+        {
+          id: 1,
+          name: "福州大学易班工作站",
+        },
+        {
+          id: 2,
+          name: "福州大学社委会",
+        },
+      ],
+      leagues: [
+        {
+          id: 0,
+          name: "社团部",
+        },
+        {
+          id: 1,
+          name: "社团部",
+        },
+        {
+          id: 2,
+          name: "社团部",
+        },
+      ],
     };
   },
+
+  // created() {
+  //   this.$axio({
+  //     method: "",
+  //     url: "",
+  //   }).then((re) => {
+  //     console.log(re);
+  //   });
+
+  //   this.$axio({
+  //     method: "",
+  //     url: "",
+  //   }).then((re) => {
+  //     console.log(re);
+  //   });
+  // },
 
   methods: {
     go_back() {
@@ -71,6 +141,12 @@ export default {
     go_search() {
       this.$router.push("/search");
     },
+
+    go_next(id, name) {
+      this.$router.push(`/next/${id}/${name}`);
+    },
+
+    go_detail() {},
 
     go_department() {
       this.isDepartment = true;
@@ -198,5 +274,31 @@ export default {
 
 .box_none {
   display: none;
+}
+
+#main_content {
+  padding-top: 9px;
+  width: 375px;
+  min-height: 682px;
+}
+
+.item_list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 22px;
+  width: 300px;
+  margin-left: 32px;
+  margin-right: 43px;
+  padding: 17px 0;
+}
+
+.item_name {
+  font-size: 16px;
+}
+
+.next_icon {
+  width: 10px;
+  height: 16px;
 }
 </style>
