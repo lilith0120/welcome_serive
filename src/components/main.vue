@@ -88,7 +88,7 @@ export default {
       if (this.$route.params.name == undefined) {
         this.$router.push({ path: `/${id}/${name}` });
       } else {
-        console.log(233);
+        this.$router.push({ path: `/details/${id}/${name}` });
       }
     },
   },

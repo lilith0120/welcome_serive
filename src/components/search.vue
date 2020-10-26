@@ -117,6 +117,15 @@ export default {
     };
   },
 
+  // created() {
+  //   this.$axio({
+  //     method: '',
+  //     url: ''
+  //   }).then(re => {
+  //     console.log(re);
+  //   })
+  // },
+
   methods: {
     go_back() {
       this.$router.go(-1);
