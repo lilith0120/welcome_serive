@@ -24,7 +24,7 @@
         :class="{ isTop: index == 0 ? true : false }"
         v-for="(item, index) in items"
         :key="index"
-        @click="go_next(item.name)"
+        @click="go_next(item.id, item.name)"
       >
         <span class="item_name">{{ item.name }}</span>
         <img class="next_icon" src="../assets/image/next.png" />
@@ -41,15 +41,19 @@ export default {
     return {
       items: [
         {
+          id: 0,
           name: "西二在线工作室",
         },
         {
+          id: 1,
           name: "校学生会 外联部",
         },
         {
+          id: 2,
           name: "校团委",
         },
         {
+          id: 3,
           name: "易班工作站",
         },
       ],
@@ -74,8 +78,8 @@ export default {
       this.$router.push("search");
     },
 
-    go_next(name) {
-      console.log(name);
+    go_next(id, name) {
+      this.$router.push({ path: `/details/${id}/${name}` });
     },
   },
 };

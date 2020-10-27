@@ -147,7 +147,7 @@ export default {
     },
 
     go_detail(id, name) {
-      this.$router.push({ path: `/members/${id}/${name}` });
+      this.$router.push({ path: `/details/${id}/${name}` });
     },
 
     go_department() {
