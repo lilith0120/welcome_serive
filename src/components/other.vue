@@ -24,9 +24,9 @@
         :class="{ isTop: index == 0 ? true : false }"
         v-for="(item, index) in items"
         :key="index"
-        @click="go_next(item.id, item.name)"
+        @click="go_next(item.departmentId, item.departmentName)"
       >
-        <span class="item_name">{{ item.name }}</span>
+        <span class="item_name">{{ item.departmentName }}</span>
         <img class="next_icon" src="../assets/image/next.png" />
       </div>
     </div>
@@ -40,34 +40,37 @@ export default {
   data() {
     return {
       items: [
-        {
-          id: 0,
-          name: "西二在线工作室",
-        },
-        {
-          id: 1,
-          name: "校学生会 外联部",
-        },
-        {
-          id: 2,
-          name: "校团委",
-        },
-        {
-          id: 3,
-          name: "易班工作站",
-        },
+        // {
+        //   id: 0,
+        //   name: "西二在线工作室",
+        // },
+        // {
+        //   id: 1,
+        //   name: "校学生会 外联部",
+        // },
+        // {
+        //   id: 2,
+        //   name: "校团委",
+        // },
+        // {
+        //   id: 3,
+        //   name: "易班工作站",
+        // },
       ],
     };
   },
 
-  //   created() {
-  //       this.$axio({
-  //           method: '',
-  //           url: ''
-  //       }).then(re => {
-  //           console.log(re);
-  //       })
-  //   },
+  created() {
+    this.$axios({
+      method: "get",
+      url: "/app/account/excellent",
+    }).then((re) => {
+      console.log(re);
+      this.items = re.data;
+      let account = re.data[0].accountId;
+      localStorage.setItem("account", account);
+    });
+  },
 
   methods: {
     go_back() {

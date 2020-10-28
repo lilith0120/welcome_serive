@@ -1,12 +1,12 @@
 module.exports = {
-    // devServer: {
-    //     proxy: {
-    //         '': {
-    //             target: 'https://39.101.199.3:443/',
-    //             changeOrigin: true,
-    //         },
-    //     },
-    // },
+    devServer: {
+        proxy: {
+            '': {
+                target: 'http://www.chenzhimeng.top:9000/',
+                changeOrigin: true,
+            },
+        },
+    },
 
     // publicPath: '/coLeader/',
 

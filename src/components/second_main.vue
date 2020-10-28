@@ -84,6 +84,7 @@ export default {
 
   data() {
     return {
+      college_id: this.$router.params.id,
       title: this.$route.params.name,
       isDepartment: true,
       departments: [
@@ -117,21 +118,23 @@ export default {
     };
   },
 
-  // created() {
-  //   this.$axio({
-  //     method: "",
-  //     url: "",
-  //   }).then((re) => {
-  //     console.log(re);
-  //   });
+  created() {
+    // 获取部门
+    this.$axio({
+      method: "get",
+      url: `/app/account/parent/2?mark=1&collegeId=${this.college_id}`,
+    }).then((re) => {
+      console.log(re);
+    });
 
-  //   this.$axio({
-  //     method: "",
-  //     url: "",
-  //   }).then((re) => {
-  //     console.log(re);
-  //   });
-  // },
+    // 获取社团
+    this.$axio({
+      method: "get",
+      url: `/app/account/parent/2?mark=0&collegeId=${this.college_id}`,
+    }).then((re) => {
+      console.log(re);
+    });
+  },
 
   methods: {
     go_back() {

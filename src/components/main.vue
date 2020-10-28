@@ -23,9 +23,9 @@
         class="item_list"
         v-for="(item, index) in items"
         :key="index"
-        @click="go_next(item.id, item.name)"
+        @click="go_next(item.collegeId, item.collegeName)"
       >
-        <span class="item_name">{{ item.name }}</span>
+        <span class="item_name">{{ item.collegeName }}</span>
         <img class="next_icon" src="../assets/image/next.png" />
       </div>
     </div>
@@ -38,42 +38,31 @@ export default {
 
   data() {
     return {
+      parent_id: this.$route.params.id,
       title:
         this.$route.params.name == undefined
           ? "部门与社团"
           : this.$route.params.name,
-      items: [
-        {
-          id: 0,
-          name: "校级",
-        },
-        {
-          id: 1,
-          name: "数计学院",
-        },
-        {
-          id: 2,
-          name: "电气学院",
-        },
-      ],
+      items: [],
     };
   },
 
-  // created() {
-  //   let url;
-  //   if (this.$route.params.name == undefined) {
-  //     url = "";
-  //   } else {
-  //     url = "";
-  //   }
+  created() {
+    let url;
+    if (this.$route.params.name == undefined) {
+      url = "/app/college";
+    } else {
+      url = `/app/account/parent/${this.parent_id}`;
+    }
 
-  //   this.$axios({
-  //     method: "",
-  //     url: url,
-  //   }).then((re) => {
-  //     console.log(re);
-  //   });
-  // },
+    this.$axios({
+      method: "get",
+      url: url,
+    }).then((re) => {
+      // console.log(re);
+      this.items = re.data;
+    });
+  },
 
   methods: {
     go_back() {

@@ -91,20 +91,42 @@ export default {
     };
   },
 
-  // created() {
-  //   this.$axios({
-  //     method: "",
-  //     url: "",
-  //   }).then((re) => {
-  //     console.log(re);
-  //     let file = re.introductionDoc.file[0];
-  //     let reader = new FileReader();
-  //     reader.readAsText(file);
-  //     reader.onload = (e) => {
-  //       this.introduction = e.target.result;
-  //     };
-  //   });
-  // },
+  created() {
+    let account = localStorage.getItem("account");
+
+    this.$axios({
+      method: "get",
+      url: `/app/account/${account}`,
+    }).then((re) => {
+      console.log(re);
+      this.accountId = re.data.account;
+      this.name = re.data.departmentName;
+      let mark = re.data.mark;
+      if (mark == 0) {
+        this.level = "院级社团";
+      } else if (mark == 1) {
+        this.level = "院级部门";
+      } else if (mark == 2) {
+        this.level = "校级社团";
+      } else {
+        this.level = "校级部门";
+      }
+
+      let { department } = re.data;
+      this.id = department.departmentId;
+      this.star_level = department.starLevel;
+      this.group_num = department.recruitingGroup;
+      this.link = department.applyLink;
+      this.logo = department.logo;
+
+      let file = department.introductionDoc.file[0];
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = (e) => {
+        this.introduction = e.target.result;
+      };
+    });
+  },
 
   methods: {
     go_back() {

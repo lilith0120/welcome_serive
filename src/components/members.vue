@@ -16,10 +16,10 @@
     <div id="main_body">
       <div class="item_list" v-for="(member, index) in members" :key="index">
         <div class="item_front">
-          <span class="item_name">{{ member.name }}</span>
-          <span class="item_college">{{ member.college }}</span>
+          <span class="item_name">{{ member.memberName }}</span>
+          <span class="item_college">{{ member.college.collegeName }}</span>
         </div>
-        <span class="item_position">{{ member.position }}</span>
+        <span class="item_position">{{ member.job }}</span>
       </div>
     </div>
   </div>
@@ -46,14 +46,15 @@ export default {
     };
   },
 
-  // created() {
-  //   this.$axios({
-  //     method: "",
-  //     url: "",
-  //   }).then((re) => {
-  //     console.log(re);
-  //   });
-  // },
+  created() {
+    this.$axios({
+      method: "get",
+      url: `/app/member/department/${this.$route.params.id}`,
+    }).then((re) => {
+      console.log(re);
+      this.members = re.data;
+    });
+  },
 
   methods: {
     go_back() {
