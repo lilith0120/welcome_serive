@@ -39,24 +39,7 @@ export default {
 
   data() {
     return {
-      items: [
-        // {
-        //   id: 0,
-        //   name: "西二在线工作室",
-        // },
-        // {
-        //   id: 1,
-        //   name: "校学生会 外联部",
-        // },
-        // {
-        //   id: 2,
-        //   name: "校团委",
-        // },
-        // {
-        //   id: 3,
-        //   name: "易班工作站",
-        // },
-      ],
+      items: [],
     };
   },
 
@@ -78,7 +61,7 @@ export default {
     },
 
     go_search() {
-      this.$router.push("search");
+      this.$router.push("/search/other/0");
     },
 
     go_next(id, name) {

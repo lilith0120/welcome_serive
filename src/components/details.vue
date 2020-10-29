@@ -60,10 +60,10 @@
 
         <div id="introduct_end">{{ introduction }}</div>
 
-        <div id="video_link">
+        <!-- <div id="video_link">
           <span id="video_link_label">视频链接:</span>
           <span id="video_link_num" @click="go_video()">{{ video_link }}</span>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -75,19 +75,17 @@ export default {
 
   data() {
     return {
-      id: 3,
-      accountId: 100018,
-      level: "校级社团",
-      star_level: 5,
-      group_num: "111111111",
-      link: "https://www.bilibili.com/",
-      logo:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-      name: "KPLAY酷玩街舞协会",
-      introduction:
-        "      KPLAY酷玩街舞协会创建于2005年，拥有五个部门与五个舞种，主要发展街舞文化，与校外的街舞爱好者进行沟通交流。是校内各大小舞台的常客，为大家提供了一个舞蹈交流的平台。我们协会现主打Breaking、Popping、Jazz、Hiphop以及Locking，每周周一到周五都有各个舞种的课程！在众多的舞蹈风格中，总有一个适合你、打动你。相信对生活充满热情的你们肯定会喜欢！",
-      members: [{ name: "23" }],
-      video_link: "https://www.baidu.com/",
+      id: 0,
+      accountId: 0,
+      level: "",
+      star_level: 0,
+      group_num: "",
+      link: "",
+      logo: "",
+      name: "",
+      introduction: "",
+      members: [],
+      video_link: "",
     };
   },
 
@@ -149,9 +147,9 @@ export default {
       this.$router.push({ path: `/members/${this.id}/${this.name}` });
     },
 
-    go_video() {
-      window.location.href = this.video_link;
-    },
+    // go_video() {
+    //   window.location.href = this.video_link;
+    // },
   },
 };
 </script>

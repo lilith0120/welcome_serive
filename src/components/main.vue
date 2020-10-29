@@ -61,6 +61,10 @@ export default {
     }).then((re) => {
       // console.log(re);
       this.items = re.data;
+      if (this.$route.params.name != undefined) {
+        let account = re.data[0].accountId;
+        localStorage.setItem("account", account);
+      }
     });
   },
 
@@ -70,7 +74,11 @@ export default {
     },
 
     go_search() {
-      this.$router.push("/search");
+      if (this.$route.params.name == undefined) {
+        this.$router.push({ path: "/search/main/0" });
+      } else {
+        this.$router.push({ path: `/search/next/${this.parent_id}` });
+      }
     },
 
     go_next(id, name) {

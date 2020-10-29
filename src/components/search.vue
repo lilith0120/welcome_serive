@@ -50,9 +50,13 @@
           class="item_list"
           v-for="(item, index) in items"
           :key="index"
-          @click="go_next(item.name)"
+          @click="
+            go_next(path == 'main' ? item.collegeName : item.departmentName)
+          "
         >
-          <span class="item_name">{{ item.name }}</span>
+          <span class="item_name">{{
+            path == "main" ? item.collegeName : item.departmentName
+          }}</span>
           <img class="next_icon" src="../assets/image/next.png" />
         </div>
       </div>
@@ -66,52 +70,54 @@ export default {
 
   data() {
     return {
+      id: this.$route.params.id,
+      path: this.$route.params.from,
       key: "",
       tags: [
-        {
-          name: "易班",
-        },
-        {
-          name: "C",
-        },
-        {
-          name: "西二在线",
-        },
-        {
-          name: "西二在线",
-        },
-        {
-          name: "西二在线",
-        },
-        {
-          name: "西二在线",
-        },
-        {
-          name: "西二在线",
-        },
+        // {
+        //   name: "易班",
+        // },
+        // {
+        //   name: "C",
+        // },
+        // {
+        //   name: "西二在线",
+        // },
+        // {
+        //   name: "西二在线",
+        // },
+        // {
+        //   name: "西二在线",
+        // },
+        // {
+        //   name: "西二在线",
+        // },
+        // {
+        //   name: "西二在线",
+        // },
       ],
       items: [
-        {
-          name: "校级",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
-        {
-          name: "数计学院",
-        },
+        // {
+        //   name: "校级",
+        // },
+        // {
+        //   name: "数计学院",
+        // },
+        // {
+        //   name: "数计学院",
+        // },
+        // {
+        //   name: "数计学院",
+        // },
+        // {
+        //   name: "数计学院",
+        // },
+        // {
+        //   name: "数计学院",
+        // },
+        // {
+        //   name: "数计学院",
+        // },
       ],
       isSearch: false,
     };
@@ -140,24 +146,52 @@ export default {
     search(event) {
       if (event.keyCode == 13) {
         this.isSearch = true;
-        // this.$axio({
-        //   method: "",
-        //   url: "",
-        // }).then((re) => {
-        //   console.log(re);
-        // });
+
+        let url;
+        let mark = localStorage.getItem("mark");
+        if (this.path == "main") {
+          url = `/app/college?collegeName=${this.key}`;
+        } else if (this.path == "other") {
+          url = `/app/account/excellent?fuzzyName=${this.key}`;
+        } else if (this.path == "next") {
+          url = `/app/account/parent/${this.id}?fuzzyName=${this.key}`;
+        } else if (this.path == "second") {
+          url = `/app/account/parent/2?fuzzyName=${this.key}&mark=${mark}&collegeId=${this.id}`;
+        }
+
+        this.$axio({
+          method: "get",
+          url: url,
+        }).then((re) => {
+          console.log(re);
+          this.items = re.data;
+        });
       }
     },
 
     go_tag(name) {
       this.key = name;
       this.isSearch = true;
-      // this.$axio({
-      //   method: "",
-      //   url: "",
-      // }).then((re) => {
-      //   console.log(re);
-      // });
+
+      let url;
+      let mark = localStorage.getItem("mark");
+      if (this.path == "main") {
+        url = `/app/college?collegeName=${this.key}`;
+      } else if (this.path == "other") {
+        url = `/app/account/excellent?fuzzyName=${this.key}`;
+      } else if (this.path == "next") {
+        url = `/app/account/parent/${this.id}?fuzzyName=${this.key}`;
+      } else if (this.path == "second") {
+        url = `/app/account/parent/2?fuzzyName=${this.key}&mark=${mark}&collegeId=${this.id}`;
+      }
+
+      this.$axio({
+        method: "get",
+        url: url,
+      }).then((re) => {
+        console.log(re);
+        this.items = re.data;
+      });
     },
 
     go_next(name) {
