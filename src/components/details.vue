@@ -46,7 +46,7 @@
         </span>
       </div>
 
-      <div class="member" :class="{ no_member: members.length == 0 }">
+      <div class="member" :class="{ no_member: !has_member }">
         <img class="member_icon" src="../assets/image/member.png" />
         <span id="member_label">主要成员:</span>
         <span id="member_num" @click="go_member()">点击查看</span>
@@ -86,7 +86,7 @@ export default {
       logo: "",
       name: "",
       introduction: "",
-      members: [],
+      has_member: false,
       video_link: "",
     };
   },
@@ -103,7 +103,7 @@ export default {
         method: "get",
         url: `/app/account/${account}`,
       }).then((re) => {
-        console.log(re);
+        // console.log(re);
         this.accountId = re.data.account;
         this.name = re.data.departmentName;
         let mark = re.data.mark;
@@ -123,6 +123,7 @@ export default {
         this.group_num = department.recruitingGroup;
         this.link = department.applyLink;
         this.logo = department.logo;
+        this.has_member = department.hasMember;
 
         let mammoth = require("mammoth");
 

@@ -31,8 +31,19 @@ export default {
 
   data() {
     return {
+      id: this.$route.params.id,
       members: [],
     };
+  },
+
+  created() {
+    this.$axios({
+      method: "get",
+      url: `/app/member/department/${this.id}`,
+    }).then((re) => {
+      // console.log(re);
+      this.members = re.data;
+    });
   },
 
   methods: {
