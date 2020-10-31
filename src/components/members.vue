@@ -31,29 +31,8 @@ export default {
 
   data() {
     return {
-      members: [
-        {
-          name: "王大不大",
-          college: "经济管理学院",
-          position: "部长",
-        },
-        {
-          name: "王八",
-          college: "数学与计算机科学学院",
-          position: "普通成员",
-        },
-      ],
+      members: [],
     };
-  },
-
-  created() {
-    this.$axios({
-      method: "get",
-      url: `/app/member/department/${this.$route.params.id}`,
-    }).then((re) => {
-      console.log(re);
-      this.members = re.data;
-    });
   },
 
   methods: {

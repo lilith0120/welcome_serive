@@ -19,7 +19,9 @@ export default {
   watch: {
     $route(to, from) {
       // 通过判断路由自定义的级别来判断是转入还是转出
-      if (
+      if (to.meta.level == 100 || from.meta.level == 100) {
+        this.transition_name = "";
+      } else if (
         to.meta.level > from.meta.level ||
         (from.meta.level == undefined && to.meta.level == 1)
       ) {
@@ -29,8 +31,6 @@ export default {
         (from.meta.level == undefined && to.meta.level > 1)
       ) {
         this.transition_name = "slide-right";
-      } else if (to.meta.level == undefined) {
-        this.transition_name = "";
       }
     },
   },

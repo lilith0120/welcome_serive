@@ -50,12 +50,14 @@
           class="item_list"
           v-for="(item, index) in items"
           :key="index"
-          @click="
-            go_next(path == 'main' ? item.collegeName : item.departmentName)
-          "
+          @click="go_next(item)"
         >
           <span class="item_name">{{
-            path == "main" ? item.collegeName : item.departmentName
+            path == "main"
+              ? item.collegeName
+              : path == "second"
+              ? item.parentName
+              : item.departmentName
           }}</span>
           <img class="next_icon" src="../assets/image/next.png" />
         </div>
@@ -73,64 +75,15 @@ export default {
       id: this.$route.params.id,
       path: this.$route.params.from,
       key: "",
-      tags: [
-        // {
-        //   name: "易班",
-        // },
-        // {
-        //   name: "C",
-        // },
-        // {
-        //   name: "西二在线",
-        // },
-        // {
-        //   name: "西二在线",
-        // },
-        // {
-        //   name: "西二在线",
-        // },
-        // {
-        //   name: "西二在线",
-        // },
-        // {
-        //   name: "西二在线",
-        // },
-      ],
-      items: [
-        // {
-        //   name: "校级",
-        // },
-        // {
-        //   name: "数计学院",
-        // },
-        // {
-        //   name: "数计学院",
-        // },
-        // {
-        //   name: "数计学院",
-        // },
-        // {
-        //   name: "数计学院",
-        // },
-        // {
-        //   name: "数计学院",
-        // },
-        // {
-        //   name: "数计学院",
-        // },
-      ],
+      tags: [],
+      items: [],
       isSearch: false,
     };
   },
 
-  // created() {
-  //   this.$axio({
-  //     method: '',
-  //     url: ''
-  //   }).then(re => {
-  //     console.log(re);
-  //   })
-  // },
+  created() {
+    this.tags = JSON.parse(localStorage.getItem("result"));
+  },
 
   methods: {
     go_back() {
@@ -138,6 +91,16 @@ export default {
     },
 
     clear_text() {
+      if (this.key != "") {
+        let item = {
+          name: this.key,
+        };
+        this.tags.splice(0, 0, item);
+        if (this.tags.length >= 7) {
+          this.tags.pop();
+        }
+      }
+
       this.key = "";
       this.$refs.key_input.focus();
       this.isSearch = false;
@@ -145,32 +108,13 @@ export default {
 
     search(event) {
       if (event.keyCode == 13) {
-        this.isSearch = true;
-
-        let url;
-        let mark = localStorage.getItem("mark");
-        if (this.path == "main") {
-          url = `/app/college?collegeName=${this.key}`;
-        } else if (this.path == "other") {
-          url = `/app/account/excellent?fuzzyName=${this.key}`;
-        } else if (this.path == "next") {
-          url = `/app/account/parent/${this.id}?fuzzyName=${this.key}`;
-        } else if (this.path == "second") {
-          url = `/app/account/parent/2?fuzzyName=${this.key}&mark=${mark}&collegeId=${this.id}`;
-        }
-
-        this.$axio({
-          method: "get",
-          url: url,
-        }).then((re) => {
-          console.log(re);
-          this.items = re.data;
-        });
+        this.go_tag(this.key);
       }
     },
 
     go_tag(name) {
       this.key = name;
+      this.items = [];
       this.isSearch = true;
 
       let url;
@@ -182,10 +126,27 @@ export default {
       } else if (this.path == "next") {
         url = `/app/account/parent/${this.id}?fuzzyName=${this.key}`;
       } else if (this.path == "second") {
-        url = `/app/account/parent/2?fuzzyName=${this.key}&mark=${mark}&collegeId=${this.id}`;
+        url = `/app/parent/college/${this.id}?fuzzyName=${this.key}`;
+      } else if (this.path == "league") {
+        url = `/app/account?fuzzyName=${this.key}&mark=${mark}&collegeId=${this.id}`;
       }
 
-      this.$axio({
+      let result = [];
+      if (localStorage.getItem("result")) {
+        result = JSON.parse(localStorage.getItem("result"));
+      }
+
+      if (result != null && result.length >= 7) {
+        result.pop();
+      }
+
+      let item = {
+        name: this.key,
+      };
+      result.splice(0, 0, item);
+      localStorage.setItem("result", JSON.stringify(result));
+
+      this.$axios({
         method: "get",
         url: url,
       }).then((re) => {
@@ -194,8 +155,27 @@ export default {
       });
     },
 
-    go_next(name) {
-      console.log(name);
+    go_next(item) {
+      let id =
+        this.path == "main"
+          ? item.collegeId
+          : this.path == "second"
+          ? item.parentId
+          : item.accountId;
+      let name =
+        this.path == "main"
+          ? item.collegeName
+          : this.path == "second"
+          ? item.parentName
+          : item.departmentName;
+
+      if (this.path == "main") {
+        this.$router.push({ path: `/${id}/${name}` });
+      } else if (this.path == "second") {
+        this.$router.push(`/next/${id}/${name}`);
+      } else {
+        this.$router.push({ path: `/details/${id}/${name}` });
+      }
     },
   },
 };
@@ -293,8 +273,13 @@ export default {
   color: #9e9e9e;
   margin: 13.5px 4px;
   padding: 8px 15px;
+  max-width: 100px;
   border-radius: 18px;
   background-color: #f2f2f2;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 #search_result {

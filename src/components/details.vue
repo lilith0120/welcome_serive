@@ -58,7 +58,9 @@
           <span id="introduct_label">部门介绍</span>
         </div>
 
-        <div id="introduct_end">{{ introduction }}</div>
+        <div id="introduct_end">
+          <div v-html="introduction"></div>
+        </div>
 
         <!-- <div id="video_link">
           <span id="video_link_label">视频链接:</span>
@@ -90,43 +92,69 @@ export default {
   },
 
   created() {
-    let account = localStorage.getItem("account");
-
-    this.$axios({
-      method: "get",
-      url: `/app/account/${account}`,
-    }).then((re) => {
-      console.log(re);
-      this.accountId = re.data.account;
-      this.name = re.data.departmentName;
-      let mark = re.data.mark;
-      if (mark == 0) {
-        this.level = "院级社团";
-      } else if (mark == 1) {
-        this.level = "院级部门";
-      } else if (mark == 2) {
-        this.level = "校级社团";
-      } else {
-        this.level = "校级部门";
-      }
-
-      let { department } = re.data;
-      this.id = department.departmentId;
-      this.star_level = department.starLevel;
-      this.group_num = department.recruitingGroup;
-      this.link = department.applyLink;
-      this.logo = department.logo;
-
-      let file = department.introductionDoc.file[0];
-      let reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = (e) => {
-        this.introduction = e.target.result;
-      };
-    });
+    this.new();
   },
 
   methods: {
+    new() {
+      let account = this.$route.params.id;
+
+      this.$axios({
+        method: "get",
+        url: `/app/account/${account}`,
+      }).then((re) => {
+        console.log(re);
+        this.accountId = re.data.account;
+        this.name = re.data.departmentName;
+        let mark = re.data.mark;
+        if (mark == 0) {
+          this.level = "院级社团";
+        } else if (mark == 1) {
+          this.level = "院级部门";
+        } else if (mark == 2) {
+          this.level = "校级社团";
+        } else {
+          this.level = "校级部门";
+        }
+
+        let { department } = re.data;
+        this.id = department.departmentId;
+        this.star_level = department.starLevel;
+        this.group_num = department.recruitingGroup;
+        this.link = department.applyLink;
+        this.logo = department.logo;
+
+        let mammoth = require("mammoth");
+
+        if (department.introductionDoc == "") {
+          return;
+        }
+
+        // let file_url = department.introductionDoc;
+        let flag = department.introductionDoc.split("/")[3];
+        let index = department.introductionDoc.indexOf(flag);
+        let file_url = department.introductionDoc.substring(index - 1);
+        // console.log(file_url);
+        let _this = this;
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", file_url);
+        xhr.responseType = "arraybuffer";
+        xhr.onload = () => {
+          let arrayBuffer = xhr.response; //arrayBuffer
+
+          mammoth
+            .convertToHtml({ arrayBuffer: arrayBuffer })
+            .then(displayResult)
+            .done();
+
+          function displayResult(result) {
+            _this.introduction = result.value;
+          }
+        };
+        xhr.send();
+      });
+    },
+
     go_back() {
       this.$router.go(-1);
     },
@@ -306,5 +334,9 @@ export default {
   font-size: 14px;
   color: #1089ff;
   text-decoration: underline;
+}
+
+#introduct_end >>> img {
+  width: 100%;
 }
 </style>

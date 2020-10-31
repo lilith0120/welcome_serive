@@ -55,9 +55,9 @@
             class="item_list"
             v-for="(department, index) in departments"
             :key="index"
-            @click="go_next(department.parentId, department.departmentName)"
+            @click="go_next(department)"
           >
-            <span class="item_name">{{ department.departmentName }}</span>
+            <span class="item_name">{{ department.parentName }}</span>
             <img class="next_icon" src="../assets/image/next.png" />
           </div>
         </template>
@@ -67,7 +67,7 @@
             class="item_list"
             v-for="(league, index) in leagues"
             :key="index"
-            @click="go_detail(league.parentId, league.departmentName)"
+            @click="go_next(league)"
           >
             <span class="item_name">{{ league.departmentName }}</span>
             <img class="next_icon" src="../assets/image/next.png" />
@@ -93,22 +93,20 @@ export default {
   },
 
   created() {
-    let department_url;
     let league_url;
     if (this.title == "校级") {
-      department_url = `/app/account/parent/2?mark=3&collegeId=${this.college_id}`;
-      league_url = `/app/account/parent/2?mark=2&collegeId=${this.college_id}`;
+      league_url = `/app/account?mark=2&collegeId=${this.college_id}`;
     } else {
-      department_url = `/app/account/parent/2?mark=1&collegeId=${this.college_id}`;
-      league_url = `/app/account/parent/2?mark=0&collegeId=${this.college_id}`;
+      league_url = `/app/account?mark=0&collegeId=${this.college_id}`;
     }
 
     // 获取部门
     this.$axios({
       method: "get",
-      url: department_url,
+      url: `/app/parent/college/${this.college_id}`,
     }).then((re) => {
-      console.log(re);
+      // console.log(re);
+      this.departments = re.data;
     });
 
     // 获取社团
@@ -116,7 +114,8 @@ export default {
       method: "get",
       url: league_url,
     }).then((re) => {
-      console.log(re);
+      // console.log(re);
+      this.leagues = re.data;
     });
   },
 
@@ -126,27 +125,32 @@ export default {
     },
 
     go_search() {
-      this.$router.push(`/search/second/${this.college_id}`);
-      let mark;
-      if (this.title == "校级" && this.isDepartment) {
-        mark = 3;
-      } else if (this.title == "校级" && !this.isDepartment) {
-        mark = 2;
-      } else if (this.title != "校级" && this.isDepartment) {
-        mark = 1;
+      if (this.isDepartment) {
+        this.$router.push(`/search/second/${this.college_id}`);
       } else {
+        this.$router.push(`/search/league/${this.college_id}`);
+      }
+
+      let mark;
+      if (this.title == "校级" && !this.isDepartment) {
+        mark = 2;
+      } else if (this.title != "校级" && !this.isDepartment) {
         mark = 0;
       }
 
       localStorage.setItem("mark", mark);
     },
 
-    go_next(id, name) {
-      this.$router.push(`/next/${id}/${name}`);
-    },
-
-    go_detail(id, name) {
-      this.$router.push({ path: `/details/${id}/${name}` });
+    go_next(item) {
+      if (this.isDepartment) {
+        let id = item.parentId;
+        let name = item.parentName;
+        this.$router.push(`/next/${id}/${name}`);
+      } else {
+        let id = item.accountId;
+        let name = item.departmentName;
+        this.$router.push({ path: `/details/${id}/${name}` });
+      }
     },
 
     go_department() {

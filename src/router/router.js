@@ -20,7 +20,8 @@ const router = new VueRouter({
             component: home,
             name: 'home',
             meta: {
-                level: 1
+                level: 1,
+                keepAlive: true
             }
         },
         {
@@ -28,7 +29,8 @@ const router = new VueRouter({
             component: main,
             name: 'main',
             meta: {
-                level: 2
+                level: 2,
+                keepAlive: false
             }
         },
         {
@@ -36,7 +38,8 @@ const router = new VueRouter({
             component: other,
             name: 'other',
             meta: {
-                level: 2
+                level: 2,
+                keepAlive: true
             }
         },
         {
@@ -44,20 +47,26 @@ const router = new VueRouter({
             component: second,
             name: 'second',
             meta: {
-                level: 3
+                level: 3,
+                keepAlive: false
             }
         },
         {
             path: '/search/:from/:id',
             component: search,
-            name: 'search'
+            name: 'search',
+            meta: {
+                level: 100,
+                keepAlive: false
+            }
         },
         {
             path: '/next/:id/:name',
             component: main,
             name: 'next',
             meta: {
-                level: 4
+                level: 4,
+                keepAlive: false
             }
         },
         {
@@ -65,7 +74,8 @@ const router = new VueRouter({
             component: details,
             name: 'details',
             meta: {
-                level: 5
+                level: 5,
+                keepAlive: false
             }
         },
         {
@@ -73,10 +83,23 @@ const router = new VueRouter({
             component: members,
             name: 'members',
             meta: {
-                level: 6
+                level: 6,
+                keepAlive: false
             }
         }
     ]
 })
+
+// router.beforeEach((to, from, next) => {
+//     from.meta.keepAlive = true;
+//     to.meta.keepAlive = true;
+//     if (to.name == "search") {
+//         from.meta.keepAlive = true;
+//     }
+//     else if (from.name == "search") {
+//         from.meta.keepAlive = false;
+//     }
+//     next();
+// })
 
 export default router

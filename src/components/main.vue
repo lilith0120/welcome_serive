@@ -23,9 +23,11 @@
         class="item_list"
         v-for="(item, index) in items"
         :key="index"
-        @click="go_next(item.collegeId, item.collegeName)"
+        @click="go_next(item)"
       >
-        <span class="item_name">{{ item.collegeName }}</span>
+        <span class="item_name">{{
+          title == "部门与社团" ? item.collegeName : item.departmentName
+        }}</span>
         <img class="next_icon" src="../assets/image/next.png" />
       </div>
     </div>
@@ -61,10 +63,6 @@ export default {
     }).then((re) => {
       // console.log(re);
       this.items = re.data;
-      if (this.$route.params.name != undefined) {
-        let account = re.data[0].accountId;
-        localStorage.setItem("account", account);
-      }
     });
   },
 
@@ -81,10 +79,14 @@ export default {
       }
     },
 
-    go_next(id, name) {
+    go_next(item) {
+      let id = item.collegeId;
+      let name = item.collegeName;
       if (this.$route.params.name == undefined) {
         this.$router.push({ path: `/${id}/${name}` });
       } else {
+        id = item.accountId;
+        name = item.departmentName;
         this.$router.push({ path: `/details/${id}/${name}` });
       }
     },

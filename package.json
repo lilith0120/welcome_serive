@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "mammoth": "^1.4.13",
     "postcss-px-to-viewport": "^1.1.1",
     "vue": "^2.6.11",
     "vue-router": "^3.4.7"

@@ -24,7 +24,7 @@
         :class="{ isTop: index == 0 ? true : false }"
         v-for="(item, index) in items"
         :key="index"
-        @click="go_next(item.departmentId, item.departmentName)"
+        @click="go_next(item.accountId, item.departmentName)"
       >
         <span class="item_name">{{ item.departmentName }}</span>
         <img class="next_icon" src="../assets/image/next.png" />
@@ -48,10 +48,8 @@ export default {
       method: "get",
       url: "/app/account/excellent",
     }).then((re) => {
-      console.log(re);
+      // console.log(re);
       this.items = re.data;
-      let account = re.data[0].accountId;
-      localStorage.setItem("account", account);
     });
   },
 
