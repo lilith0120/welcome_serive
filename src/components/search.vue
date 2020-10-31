@@ -95,7 +95,14 @@ export default {
         let item = {
           name: this.key,
         };
-        this.tags.splice(0, 0, item);
+
+        if (this.tags == null) {
+          this.tags = [];
+          this.tags.push(item);
+        } else {
+          this.tags.splice(0, 0, item);
+        }
+
         if (this.tags.length >= 7) {
           this.tags.pop();
         }
@@ -150,7 +157,7 @@ export default {
         method: "get",
         url: url,
       }).then((re) => {
-        console.log(re);
+        // console.log(re);
         this.items = re.data;
       });
     },

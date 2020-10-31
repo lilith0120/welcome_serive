@@ -93,6 +93,8 @@ export default {
 
   created() {
     this.new();
+    window.go_num = this.go_num;
+    window.go_share = this.go_share;
   },
 
   methods: {
@@ -131,10 +133,10 @@ export default {
           return;
         }
 
-        // let file_url = department.introductionDoc;
-        let flag = department.introductionDoc.split("/")[3];
-        let index = department.introductionDoc.indexOf(flag);
-        let file_url = department.introductionDoc.substring(index - 1);
+        let file_url = department.introductionDoc;
+        // let flag = department.introductionDoc.split("/")[3];
+        // let index = department.introductionDoc.indexOf(flag);
+        // let file_url = department.introductionDoc.substring(index - 1);
         // console.log(file_url);
         let _this = this;
         let xhr = new XMLHttpRequest();
@@ -160,12 +162,14 @@ export default {
       this.$router.go(-1);
     },
 
+    // 点击分享(跟移动端交互)
     go_share() {
-      console.log("share");
+      return "share";
     },
 
+    // 点击群号（跟移动端交互）
     go_num() {
-      console.log(this.group_num);
+      return this.group_num;
     },
 
     go_link() {

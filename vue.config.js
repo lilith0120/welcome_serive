@@ -2,13 +2,13 @@ module.exports = {
     devServer: {
         proxy: {
             '': {
-                target: 'http://www.chenzhimeng.top:9000/',
+                target: 'http://welcome.fzuhelper.w2fzu.com/',
                 changeOrigin: true,
             },
         },
     },
 
-    // publicPath: '/coLeader/',
+    publicPath: './',
 
     // pwa: {
     //     iconPaths: {
