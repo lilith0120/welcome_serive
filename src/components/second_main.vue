@@ -207,7 +207,7 @@ export default {
 }
 
 #main_body {
-  min-height: 717px;
+  /* min-height: 717px; */
   width: 375px;
   background-color: #fff;
 }
@@ -284,7 +284,7 @@ export default {
 #main_content {
   padding-top: 9px;
   width: 375px;
-  min-height: 682px;
+  /* min-height: 682px; */
 }
 
 .item_list {

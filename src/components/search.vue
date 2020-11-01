@@ -259,7 +259,7 @@ export default {
 }
 
 #before_search {
-  min-height: 748px;
+  min-height: calc(100vh - 63px);
 }
 
 #history_label {
@@ -291,7 +291,7 @@ export default {
 
 #search_result {
   padding-top: 9px;
-  min-height: 711px;
+  /* min-height: 711px; */
   background-color: #fff;
   border-radius: 0 40px 0 0;
 }

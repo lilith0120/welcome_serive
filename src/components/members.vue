@@ -91,7 +91,7 @@ export default {
 
 #main_body {
   padding-top: 9px;
-  min-height: 711px;
+  /* min-height: 711px; */
   width: 375px;
   background-color: #fff;
 }

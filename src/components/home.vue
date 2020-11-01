@@ -84,7 +84,7 @@ export default {
 
 #main_body {
   padding-top: 9px;
-  height: 711px;
+  /* min-height: 711px; */
   width: 375px;
   border-radius: 0px 40px 0px 0px;
   background-color: #fff;

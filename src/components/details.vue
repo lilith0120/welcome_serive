@@ -250,7 +250,7 @@ export default {
   box-sizing: border-box;
   background-color: #fff;
   width: 375px;
-  min-height: 570px;
+  /* min-height: 570px; */
   border-radius: 40px 40px 0 0;
 }
 

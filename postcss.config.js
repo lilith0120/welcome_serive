@@ -4,7 +4,7 @@ module.exports = {
         "postcss-px-to-viewport": {
             unitToConvert: "px", // 要转化的单位
             viewportWidth: 375,  //视窗宽度，对应设计稿宽度
-            viewportHeight: 812, //视窗高度
+            //viewportHeight: 812, //视窗高度
             unitPrecision: 6,    //px转vw单位时精确到小数点后第几位
             viewportUnit: 'vw',  //视窗单位，建议vw
             //selectorBlackList: ['ignore', 'tab-bar', 'tab-bar-item'],   //要忽略的，即不需要转换的类
