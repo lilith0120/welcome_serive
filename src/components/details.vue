@@ -29,7 +29,7 @@
       <div class="group" :class="{ no_group: group_num == '' }">
         <img class="group_icon" src="../assets/image/group_num.png" />
         <span id="group_label">纳新群号:</span>
-        <span id="group_num" @click="go_num()">{{ group_num }}</span>
+        <span id="group_num">{{ group_num }}</span>
       </div>
 
       <div class="link" :class="{ no_link: link == '' }">
@@ -93,8 +93,6 @@ export default {
 
   created() {
     this.new();
-    window.go_num = this.go_num;
-    window.go_share = this.go_share;
   },
 
   methods: {
@@ -164,13 +162,34 @@ export default {
 
     // 点击分享(跟移动端交互)
     go_share() {
-      return "share";
+      let path = this.$route.path;
+      let u = navigator.userAgent;
+      let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+      let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+      if (isAndroid) {
+        window.yingxin.ShareDetail(path);
+        // console.log("android");
+      } else if (isIOS) {
+        // window.webkit.messageHandlers.[方法名].postMessage();
+        console.log("ios");
+      }
     },
 
     // 点击群号（跟移动端交互）
-    go_num() {
-      return this.group_num;
-    },
+    // go_num() {
+    //   let u = navigator.userAgent;
+    //   let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+    //   let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+    //   if (isAndroid) {
+    //     //window.[命名].[方法名](this.group_num);
+    //     console.log("android");
+    //   } else if (isIOS) {
+    //     // window.webkit.messageHandlers.[方法名].postMessage(this.group_num);
+    //     console.log("ios");
+    //   }
+    // },
 
     go_link() {
       window.location.href = this.link;

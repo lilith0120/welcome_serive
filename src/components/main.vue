@@ -96,6 +96,7 @@ export default {
 
 <style scoped>
 #main {
+  height: 100vh;
   background-color: #f8f8f8;
   overflow: hidden;
 }

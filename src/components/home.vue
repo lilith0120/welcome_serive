@@ -37,7 +37,17 @@ export default {
 
   methods: {
     go_back() {
-      this.$router.go(-1);
+      let u = navigator.userAgent;
+      let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+      let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+      if (isAndroid) {
+        window.yingxin.FinishFragment("finish");
+        // console.log("android");
+      } else if (isIOS) {
+        // window.webkit.messageHandlers.[方法名].postMessage();
+        console.log("ios");
+      }
     },
 
     go_other() {
@@ -53,7 +63,9 @@ export default {
 
 <style scoped>
 #home {
+  height: 100vh;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 
 #title_bar {
@@ -84,10 +96,11 @@ export default {
 
 #main_body {
   padding-top: 9px;
-  /* min-height: 711px; */
+  height: calc(100vh - 61px);
   width: 375px;
   border-radius: 0px 40px 0px 0px;
   background-color: #fff;
+  overflow: auto;
 }
 
 .item_list {
