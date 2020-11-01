@@ -97,6 +97,7 @@ export default {
 <style scoped>
 #main {
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 
 #title_bar {
@@ -138,10 +139,11 @@ export default {
 
 #main_body {
   padding-top: 9px;
-  /* min-height: 711px; */
+  height: calc(100vh - 61px);
   width: 375px;
   border-radius: 0px 40px 0px 0px;
   background-color: #fff;
+  overflow: auto;
 }
 
 .item_list {

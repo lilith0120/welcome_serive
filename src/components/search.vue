@@ -190,7 +190,9 @@ export default {
 
 <style scoped>
 #search {
+  height: 100vh;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 
 #title_bar {
@@ -291,9 +293,10 @@ export default {
 
 #search_result {
   padding-top: 9px;
-  /* min-height: 711px; */
+  height: calc(100vh - 63px);
   background-color: #fff;
   border-radius: 0 40px 0 0;
+  overflow: auto;
 }
 
 .item_list {

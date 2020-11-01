@@ -166,7 +166,9 @@ export default {
 
 <style scoped>
 #second_main {
+  height: 100vh;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 
 #title_bar {
@@ -207,7 +209,6 @@ export default {
 }
 
 #main_body {
-  /* min-height: 717px; */
   width: 375px;
   background-color: #fff;
 }
@@ -284,7 +285,8 @@ export default {
 #main_content {
   padding-top: 9px;
   width: 375px;
-  /* min-height: 682px; */
+  height: calc(100vh - 96px);
+  overflow: auto;
 }
 
 .item_list {
