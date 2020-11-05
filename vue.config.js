@@ -2,7 +2,7 @@ module.exports = {
     devServer: {
         proxy: {
             '': {
-                target: 'http://welcome.fzuhelper.w2fzu.com/',
+                target: 'http://welcome.fzuhelper.w2fzu.com/welcome/',
                 changeOrigin: true,
             },
         },

@@ -45,8 +45,8 @@ export default {
         window.yingxin.FinishFragment("finish");
         // console.log("android");
       } else if (isIOS) {
-        // window.webkit.messageHandlers.[方法名].postMessage();
-        console.log("ios");
+        window.webkit.messageHandlers.ExitWelcomeServiceDetail.postMessage();
+        // console.log("ios");
       }
     },
 
