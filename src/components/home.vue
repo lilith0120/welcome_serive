@@ -45,7 +45,9 @@ export default {
         window.yingxin.FinishFragment("finish");
         // console.log("android");
       } else if (isIOS) {
-        window.webkit.messageHandlers.ExitWelcomeServiceDetail.postMessage();
+        window.webkit.messageHandlers.ExitWelcomeServiceDetail.postMessage(
+          "finish"
+        );
         // console.log("ios");
       }
     },
